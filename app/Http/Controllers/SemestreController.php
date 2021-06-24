@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Note;
-use App\Models\User;
+use App\Models\Semestres;
 use Illuminate\Http\Request;
 
-class NoteController extends Controller
+class SemestreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +13,17 @@ class NoteController extends Controller
      */
     public function index()
     {
-         $Note = Note::all();
-         foreach($Note as $Note_etu)
-            $id = $Note_etu->id_etudiant;
-         $etudiant = User::where('id', $id)->get();
-        return ['Etudiant'=>$etudiant,'Note'=>$Note];  
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -30,14 +34,12 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-         $Note= new Note([
-            'valeur' => $request->input('valeur'),
-            'id_etudiant' => $request->input('id_etudiant'),
-            'id_module' => $request->input('id_module'),
+        $Semestre = new Semestres([
+            'name' => $request->input('name'),
         ]);
-        $Note->save();
+        $Semestre->save();
 
-        return response()->json('Note created!');
+        return response()->json('Semestre created!');
     }
 
     /**
@@ -48,9 +50,18 @@ class NoteController extends Controller
      */
     public function show($id)
     {
-        $Notes = Note::where('id_module', $id)->get();
-        
-        return response()->json($Notes);
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -62,10 +73,7 @@ class NoteController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $Note = Note::find($id);
-        $Note->update($request->all());
-
-        return response()->json('Note updated!');
+        //
     }
 
     /**
@@ -76,9 +84,9 @@ class NoteController extends Controller
      */
     public function destroy($id)
     {
-         $Note = Note::find($id);
-        $Note->delete();
+        $Semestre = Semestres::find($id);
+        $Semestre->delete();
 
-        return response()->json('Note deleted!');
+        return response()->json('Semestre deleted!');
     }
 }

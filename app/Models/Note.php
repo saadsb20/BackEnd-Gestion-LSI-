@@ -12,7 +12,7 @@ class Note extends Model
 
     protected $fillable = [
         'valeur',
-        'email',
-        'password',
+        'id_etudiant',
+        'id_module',
     ];
 }

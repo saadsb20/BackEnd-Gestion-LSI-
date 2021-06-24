@@ -13,18 +13,14 @@ class CreatePvesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Pfe', function (Blueprint $table) {
+        Schema::create('pves', function (Blueprint $table) {
             $table->id();
             $table->string('Sujet');
             $table->double('note');
             $table->unsignedBigInteger('id_prof');
-            $table->foreign('id_prof')->references('id')->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            $table->foreign('id_prof')->references('id')->on('users');
             $table->unsignedBigInteger('id_etudiant');
-            $table->foreign('id_etudiant')->references('id')->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            $table->foreign('id_etudiant')->references('id')->on('users');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -36,6 +32,6 @@ class CreatePvesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pves');
+        Schema::dropIfExists('Pfe');
     }
 }

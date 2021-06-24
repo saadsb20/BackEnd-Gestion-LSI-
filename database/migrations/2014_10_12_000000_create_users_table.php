@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->date('date_n')->nullable();
             $table->string('CNE')->nullable();
+            $table->unsignedBigInteger('id_semestre')->nullable();
+            $table->foreign('id_semestre')->references('id')->on('semestres');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

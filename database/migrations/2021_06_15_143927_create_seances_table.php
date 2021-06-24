@@ -13,13 +13,16 @@ class CreateSeancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Seance', function (Blueprint $table) {
+        Schema::create('seances', function (Blueprint $table) {
             $table->id();
-            $table->integer('jour');
-            $table->integer('temps');
+            $table->string('jour');
+            $table->time('temps');
             $table->unsignedBigInteger('id_module');
+            $table->unsignedBigInteger('id_semestre');
+            $table->string('salle');
             $table->foreign('id_module')->references('id')->on('modules')
-                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('id_semestre')->references('id')->on('semestres')
                 ->onUpdate('cascade');
             $table->rememberToken();
             $table->timestamps();

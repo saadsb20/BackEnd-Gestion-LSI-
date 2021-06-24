@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Pfe extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'Sujet',
+        'note',
+        'id_prof',
+        'id_etudiant'
+    ];
 }

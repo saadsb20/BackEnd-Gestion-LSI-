@@ -47,8 +47,9 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:100|unique:users',
             'CNE' => 'string|max:10',
             'date_n' => 'date',
+            'id_semestre' => 'integer',
             'password' => 'required|string|min:8',
-            // 'role' => 'required|string',
+            'role' => 'required|string',
         ]);
         
         if ($validator->fails()) {
@@ -79,22 +80,18 @@ class AuthController extends Controller
         return response()->json(['message' => 'User successfully signed out']);
     }
 
+    public function DeleteUser($id){
+        $User = User::find($id);
+        $User->delete();
 
-
-    public function StudentProfile()
-    {
-
-        return response()->json([auth()->user(), 'you are a' => 'Student']);
+        return response()->json('User deleted!');
     }
-    public function TeacherProfile()
+    public function update(Request $request, $id)
     {
+       $Seance = User::find($id);
+        $Seance->update($request->all());
 
-        return response()->json([auth()->user(), 'you are a ' => 'Teacher']);
-    }
-    public function AdminProfile()
-    {
-
-        return response()->json([auth()->user(), 'you are the' => 'Admin']);
+        return response()->json('User updated!');
     }
     public function GetStu()
     {

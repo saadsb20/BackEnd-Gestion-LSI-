@@ -18,11 +18,9 @@ class CreateNotesTable extends Migration
             $table->float('valeur');
             $table->unsignedBigInteger('id_module');
             $table->foreign('id_module')->references('id')->on('modules')
-                ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->unsignedBigInteger('id_etudiant');
             $table->foreign('id_etudiant')->references('id')->on('users')
-                ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->rememberToken();
             $table->timestamps();
