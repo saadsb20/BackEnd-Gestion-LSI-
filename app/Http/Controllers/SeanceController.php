@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Seance;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class SeanceController extends Controller
@@ -56,9 +57,14 @@ class SeanceController extends Controller
      */
     public function show($id)
     {
-        $Seances = Seance::where('id_semestre', $id)->get();
         
-        return response()->json($Seances);
+        $Seances = Seance::where('id_semestre', $id)->get();
+        foreach($Seances as $Seance){
+            $id = $Seance->id_module;
+            $Seance->ModuleName = Module::where('id', $id)->get();
+            $Sorted = collect($Seances)->sortBy($Seance->jour)->values();
+        }
+        return $Sorted;
     }
 
     /**

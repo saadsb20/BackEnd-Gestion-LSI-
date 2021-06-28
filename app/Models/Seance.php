@@ -13,7 +13,7 @@ class Seance extends Model
         'temps',
         'id_module',
         'id_semestre',
-        'salle' 
+        'salle'
     ];
 
     protected $casts = [

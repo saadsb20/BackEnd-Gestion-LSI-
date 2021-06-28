@@ -54,10 +54,13 @@ class ModuleController extends Controller
      */
     public function show($id)
     {
-        $profinfo = User::where('id', $id)->get();
-        $Module = Module::where('id_prof', $id)->get();
+        $Modules = Module::where('id_semestre', $id)->get();
+        foreach($Modules as $Module){
+            $id_pr = $Module->id_prof;
+            $Module->ProfName = User::where('id', $id_pr)->get();
+        }
         
-        return response()->json(['module'=>$Module,'prof'=>$profinfo]);
+        return $Modules;
     }
 
     /**

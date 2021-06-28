@@ -80,29 +80,6 @@ class AuthController extends Controller
         return response()->json(['message' => 'User successfully signed out']);
     }
 
-    public function DeleteUser($id){
-        $User = User::find($id);
-        $User->delete();
-
-        return response()->json('User deleted!');
-    }
-    public function update(Request $request, $id)
-    {
-       $Seance = User::find($id);
-        $Seance->update($request->all());
-
-        return response()->json('User updated!');
-    }
-    public function GetStu()
-    {
-        $users = User::whereRoleIs('Student')->get();
-        return $users;
-    }
-    public function GetPro()
-    {
-        $users = User::whereRoleIs('Teacher')->get();
-        return $users;
-    }
     protected function createNewToken($token)
     {
         if (auth()->user()->hasRole('Admin')) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\SemestreController;
 use App\Http\Controllers\SeanceController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\PfeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,15 +37,15 @@ Route::group(
     }
 );
 
- Route::get('/getstu', [AuthController::class, 'GetStu'])->middleware(['api', 'role:Admin']);
- Route::put('/updateuser/{id}', [AuthController::class, 'update'])->middleware(['api', 'role:Admin']);
+ Route::get('/getstu/{semestre}', [UserController::class, 'GetStu'])->middleware(['api', 'role:Admin']);
+ Route::put('/updateuser/{id}', [UserController::class, 'update'])->middleware(['api', 'role:Admin']);
 
 
- Route::get('/getpro', [AuthController::class, 'GetPro'])->middleware(['api', 'role:Admin']);
- Route::delete('/deleteuser/{id}', [AuthController::class, 'DeleteUser']);
+ Route::get('/getpro', [UserController::class, 'GetPro'])->middleware(['api', 'role:Admin']);
+ Route::delete('/deleteuser/{id}', [UserController::class, 'DeleteUser'])->middleware(['api', 'role:Admin']);
 
-Route::resource('Modules',ModuleController::class)->middleware(['api', 'role:Admin']);
+Route::resource('Modules',ModuleController::class)->middleware(['api', 'role:Admin|Student']);
 Route::resource('Semestres',SemestreController::class)->middleware(['api', 'role:Admin']);
-Route::resource('Seance',SeanceController::class)->middleware(['api', 'role:Admin']);
-Route::resource('Note',NoteController::class)->middleware(['api', 'role:Admin']);
+Route::resource('Seance',SeanceController::class)->middleware(['api', 'role:Admin|Student']);
+Route::resource('Note',NoteController::class)->middleware(['api', 'role:Teacher|Student']);
 Route::resource('Pfe',PfeController::class)->middleware(['api', 'role:Admin']);

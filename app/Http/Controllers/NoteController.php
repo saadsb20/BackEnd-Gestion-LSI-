@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
-use App\Models\User;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -15,11 +15,10 @@ class NoteController extends Controller
      */
     public function index()
     {
+        $id = '';
          $Note = Note::all();
-         foreach($Note as $Note_etu)
-            $id = $Note_etu->id_etudiant;
-         $etudiant = User::where('id', $id)->get();
-        return ['Etudiant'=>$etudiant,'Note'=>$Note];  
+         
+        return $Note;  
     }
 
     /**
@@ -49,8 +48,11 @@ class NoteController extends Controller
     public function show($id)
     {
         $Notes = Note::where('id_module', $id)->get();
-        
-        return response()->json($Notes);
+        foreach($Notes as $Note){
+            $idetu = $Note->id_etudiant;
+            $Note->EtudiantName = User::where('id', $idetu)->get();
+        }
+        return $Notes;
     }
 
     /**
