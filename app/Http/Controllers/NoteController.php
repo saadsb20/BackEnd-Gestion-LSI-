@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Models\Note;
 use App\Models\Module;
 use Illuminate\Http\Request;
@@ -17,8 +17,8 @@ class NoteController extends Controller
     {
         $id = '';
          $Note = Note::all();
-         
-        return $Note;  
+
+        return $Note;
     }
 
     /**

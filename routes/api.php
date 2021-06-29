@@ -33,19 +33,19 @@ Route::group(
         Route::post('/checkToken', [AuthController::class, 'checkToken']);
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::post('/refresh', [AuthController::class, 'refresh']);
-
     }
 );
 
- Route::get('/getstu/{semestre}', [UserController::class, 'GetStu'])->middleware(['api', 'role:Admin']);
- Route::put('/updateuser/{id}', [UserController::class, 'update'])->middleware(['api', 'role:Admin']);
+Route::get('/getstu/{semestre}', [UserController::class, 'GetStu'])->middleware(['api', 'role:Admin|Teacher']);
+Route::get('/getstu', [UserController::class, 'getstudents'])->middleware(['api', 'role:Teacher']);
+Route::put('/updateuser/{id}', [UserController::class, 'update'])->middleware(['api', 'role:Admin']);
 
 
- Route::get('/getpro', [UserController::class, 'GetPro'])->middleware(['api', 'role:Admin']);
- Route::delete('/deleteuser/{id}', [UserController::class, 'DeleteUser'])->middleware(['api', 'role:Admin']);
+Route::get('/getpro', [UserController::class, 'GetPro'])->middleware(['api', 'role:Admin']);
+Route::delete('/deleteuser/{id}', [UserController::class, 'DeleteUser'])->middleware(['api', 'role:Admin']);
 
-Route::resource('Modules',ModuleController::class)->middleware(['api', 'role:Admin|Student']);
-Route::resource('Semestres',SemestreController::class)->middleware(['api', 'role:Admin']);
-Route::resource('Seance',SeanceController::class)->middleware(['api', 'role:Admin|Student']);
-Route::resource('Note',NoteController::class)->middleware(['api', 'role:Teacher|Student']);
-Route::resource('Pfe',PfeController::class)->middleware(['api', 'role:Admin']);
+Route::resource('Modules', ModuleController::class)->middleware(['api', 'role:Admin|Student|Teacher']);
+Route::resource('Semestres', SemestreController::class)->middleware(['api', 'role:Admin']);
+Route::resource('Seance', SeanceController::class)->middleware(['api', 'role:Admin|Student|Teacher']);
+Route::resource('Note', NoteController::class)->middleware(['api', 'role:Teacher|Student']);
+Route::resource('Pfe', PfeController::class)->middleware(['api', 'role:Admin|Teacher']);
