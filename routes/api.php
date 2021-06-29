@@ -38,6 +38,7 @@ Route::group(
 );
 
  Route::get('/getstu/{semestre}', [UserController::class, 'GetStu'])->middleware(['api', 'role:Admin']);
+ Route::get('/getonestu/{id}', [UserController::class, 'GetOneStu'])->middleware(['api', 'role:Admin']);
  Route::put('/updateuser/{id}', [UserController::class, 'update'])->middleware(['api', 'role:Admin']);
 
 

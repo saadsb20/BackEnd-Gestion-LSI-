@@ -15,6 +15,11 @@ class UserController extends Controller
         $users = User::where('id_semestre',$semestre)->get();
         return $users;
     }
+    public function GetOneStu($id)
+    {
+        $user = User::where('id',$id)->get();
+        return $user;
+    }
     public function GetPro()
     {
         $users = User::whereRoleIs('Teacher')->get();
