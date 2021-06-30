@@ -10,7 +10,7 @@ class Pfe extends Model
     use HasFactory;
     protected $fillable = [
         'Sujet',
-        'note',
+        // 'note',
         'id_prof',
         'id_etudiant'
     ];

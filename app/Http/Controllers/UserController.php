@@ -1,18 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
-{
-    
-    
-
-   
-    public function GetStu($semestre)
+{    public function GetStu($semestre)
     {
-        $users = User::where('id_semestre',$semestre)->get();
+        $users = User::where('id_semestre', $semestre)->get();
+        return $users;
+    }
+    public function getstudents()
+    {
+        $users = User::whereRoleIs('student')->get();
         return $users;
     }
     public function GetOneStu($id)
@@ -26,7 +27,8 @@ class UserController extends Controller
         return $users;
     }
 
-     public function DeleteUser($id){
+    public function DeleteUser($id)
+    {
         $User = User::find($id);
         $User->delete();
 
@@ -34,7 +36,7 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-       $Seance = User::find($id);
+        $Seance = User::find($id);
         $Seance->update($request->all());
 
         return response()->json('User updated!');

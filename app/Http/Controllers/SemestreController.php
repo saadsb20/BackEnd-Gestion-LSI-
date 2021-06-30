@@ -13,7 +13,8 @@ class SemestreController extends Controller
      */
     public function index()
     {
-        //
+        $smstr=Semestres::all();
+        return $smstr;
     }
 
     /**

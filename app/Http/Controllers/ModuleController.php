@@ -14,8 +14,12 @@ class ModuleController extends Controller
      */
     public function index()
     {
-         $Module = Module::all()->toArray();
-        return array_reverse($Module);   
+         $Modules = Module::all();
+         foreach($Modules as $Mod){
+            $id_pr = $Mod->id_prof;
+            $Mod->ProfName = User::where('id', $id_pr)->get();
+        }
+        return $Modules;
     }
 
     /**
@@ -25,7 +29,7 @@ class ModuleController extends Controller
      */
     public function create()
     {
-       
+
     }
 
     /**
@@ -52,17 +56,27 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // -----------------------------------------------
     public function show($id)
+    {
+        $profinfo = User::where('id', $id)->get();
+        $Module = Module::where('id_prof', $id)->get();
+
+        return response()->json(['module'=>$Module,'prof'=>$profinfo]);
+    }
+
+
+       public function showModule($id)
     {
         $Modules = Module::where('id_semestre', $id)->get();
         foreach($Modules as $Module){
             $id_pr = $Module->id_prof;
             $Module->ProfName = User::where('id', $id_pr)->get();
         }
-        
+
         return $Modules;
     }
-
+//--------------------------------------------------------
     /**
      * Show the form for editing the specified resource.
      *

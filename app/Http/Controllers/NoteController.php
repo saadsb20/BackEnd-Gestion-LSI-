@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Models\Note;
 use App\Models\Module;
 use Illuminate\Http\Request;
@@ -17,8 +17,8 @@ class NoteController extends Controller
     {
         $id = '';
          $Note = Note::all();
-         
-        return $Note;  
+
+        return $Note;
     }
 
     /**
@@ -51,6 +51,15 @@ class NoteController extends Controller
         foreach($Notes as $Note){
             $idetu = $Note->id_etudiant;
             $Note->EtudiantName = User::where('id', $idetu)->get();
+        }
+        return $Notes;
+    }
+    public function GetEtuNote($id)
+    {
+        $Notes = Note::where('id_etudiant', $id)->get();
+        foreach($Notes as $Note){
+            $idModule = $Note->id_module;
+            $Note->ModuleName = Module::where('id', $idModule)->get();
         }
         return $Notes;
     }

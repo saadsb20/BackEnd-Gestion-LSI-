@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Pfe;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PfeController extends Controller
@@ -13,8 +14,14 @@ class PfeController extends Controller
      */
     public function index()
     {
-       $pfe = Pfe::all();
-       return $pfe;
+       $pfes = Pfe::all();
+       foreach($pfes as $pfe){
+           $idp = $pfe->id_prof;
+           $ide = $pfe->id_etudiant;
+           $pfe->P_Name = User::where('id', $idp)->get();
+           $pfe->E_Name = User::where('id', $ide)->get();
+       }
+       return $pfes;
     }
 
     /**
@@ -38,8 +45,8 @@ class PfeController extends Controller
          $Pfe= new Pfe([
             'Sujet' => $request->input('Sujet'),
             'note' => $request->input('note'),
-            'id_prof' => $request->input('id_prof'),
-            'id_etudiant' => $request->input('id_etudiant'),
+         'id_prof' => $request->input('id_prof'),
+          'id_etudiant' => $request->input('id_etudiant'),
         ]);
         $Pfe->save();
 
@@ -54,7 +61,8 @@ class PfeController extends Controller
      */
     public function show($id)
     {
-        //
+        $pfe = Pfe::where('id_etudiant',$id)->get();
+       return $pfe;
     }
 
     /**
@@ -77,7 +85,10 @@ class PfeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pfe = Pfe::where('id_etudiant',$id);
+        $pfe->update($request->all());
+
+        return response()->json('pfe updated!');
     }
 
     /**
@@ -88,6 +99,9 @@ class PfeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pfe = pfe::find($id);
+        $pfe->delete();
+
+        return response()->json('Module deleted!');
     }
 }
