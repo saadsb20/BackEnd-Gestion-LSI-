@@ -184,7 +184,7 @@ return [
              */
             'abort' => [
                 'code' => 403,
-                'message' => 'Ser t9ewed.'
+                'message' => 'you do not have the right to visit that! '
             ],
 
             /**
