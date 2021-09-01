@@ -66,6 +66,21 @@ class SeanceController extends Controller
         }
         return $Sorted;
     }
+    public function showSeance($id)
+    {
+        $Seances = Seance::where('id', $id)->get();
+        return $Seances;
+    }
+    public function showSeanceProf($id)
+    {
+        $Seances = Seance::where('id_module', $id)->get();
+        foreach($Seances as $Seance){
+            $idMod = $Seance->id_module;
+            $Seance->ModuleName = Module::where('id', $idMod)->get();
+            $Sorted = collect($Seances)->sortBy($Seance->jour)->values();
+        }
+        return $Sorted;
+    }
 
     /**
      * Show the form for editing the specified resource.

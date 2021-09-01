@@ -16,7 +16,7 @@ class UserController extends Controller
         $users = User::whereRoleIs('student')->get();
         return $users;
     }
-    public function GetOneStu($id)
+    public function GetOneUser($id)
     {
         $user = User::where('id',$id)->get();
         return $user;
@@ -36,8 +36,8 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $Seance = User::find($id);
-        $Seance->update($request->all());
+        $user = User::find($id);
+        $user->update($request->all());
 
         return response()->json('User updated!');
     }

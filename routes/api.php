@@ -37,7 +37,8 @@ Route::group(
 );
 
 Route::get('/getstu/{semestre}', [UserController::class, 'GetStu'])->middleware(['api', 'role:Admin|Teacher']);
-Route::get('/getstu', [UserController::class, 'getstudents'])->middleware(['api', 'role:Teacher']);
+Route::get('/getoneuser/{id}', [UserController::class, 'GetOneUser'])->middleware(['api', 'role:Admin']);
+Route::get('/getstu', [UserController::class, 'getstudents'])->middleware(['api', 'role:Teacher|Admin']);
 Route::put('/updateuser/{id}', [UserController::class, 'update'])->middleware(['api', 'role:Admin']);
 
 
@@ -45,6 +46,9 @@ Route::get('/getpro', [UserController::class, 'GetPro'])->middleware(['api', 'ro
 Route::delete('/deleteuser/{id}', [UserController::class, 'DeleteUser'])->middleware(['api', 'role:Admin']);
 Route::get('Getnote/{id}', [NoteController::class, 'GetEtuNote'])->middleware(['api', 'role:Student']);
 Route::get('getModule/{id}', [ModuleController::class, 'showModule'])->middleware(['api', 'role:Admin|Student|Teacher']);
+Route::get('getMod/{id}', [ModuleController::class, 'showMod'])->middleware(['api', 'role:Admin|Teacher']);
+Route::get('getSeance/{id}', [SeanceController::class, 'showSeance'])->middleware(['api', 'role:Admin']);
+Route::get('MesSeances/{id}', [SeanceController::class, 'showSeanceProf'])->middleware(['api', 'role:Admin|Teacher']);
 
 Route::resource('Modules', ModuleController::class)->middleware(['api', 'role:Admin|Student|Teacher']);
 Route::resource('Semestres', SemestreController::class)->middleware(['api', 'role:Admin']);

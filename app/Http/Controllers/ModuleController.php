@@ -57,15 +57,24 @@ class ModuleController extends Controller
      * @return \Illuminate\Http\Response
      */
     // -----------------------------------------------
+    // by id module
     public function show($id)
     {
-        $profinfo = User::where('id', $id)->get();
-        $Module = Module::where('id_prof', $id)->get();
-
-        return response()->json(['module'=>$Module,'prof'=>$profinfo]);
+        $Module = Module::where('id', $id)->get(); 
+        foreach($Module as $Mod){
+            $id_pr = $Mod->id_prof;
+            $Mod->ProfName = User::where('id', $id_pr)->get();
+        }
+        return $Mod;
+    }
+    // by id_prof
+    public function showMod($id)
+    {
+        $Module = Module::where('id_prof', $id)->get(); 
+        return $Module;
     }
 
-
+    //by id_semestre
        public function showModule($id)
     {
         $Modules = Module::where('id_semestre', $id)->get();
